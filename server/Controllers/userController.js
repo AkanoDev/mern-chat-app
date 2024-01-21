@@ -104,7 +104,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-exports.findAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find();
 
@@ -127,7 +127,7 @@ exports.findUser = async (req, res) => {
     const user = await userModel.findById(id);
 
     res.status(200).json({
-      status: "success found user",
+      status: "successfully found user",
       data: {
         user,
       },
