@@ -18,7 +18,7 @@ const registerUser = async (req, res) => {
     if (user)
       return res.status(400).json({
         status: "fail",
-        message: "duplicate email",
+        message: "duplicate entry!, email is already exist",
       });
 
     if (!name || !email || !password)
@@ -52,7 +52,7 @@ const registerUser = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        id: user._id,
+        // id: user._id,
         name,
         email,
         token,
@@ -67,4 +67,40 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    let user = await userModel.findOne({ email });
+
+    if (!user)
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid email or password, entry does not exist",
+      });
+
+    const inValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!inValidPassword)
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid email or password, entry does not exist",
+      });
+
+    const token = createToken(user._id);
+
+    res.status(200).json({
+      status: "login successfully",
+      data: {
+        // id: user._id,
+        name: user.name,
+        email,
+        token,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { registerUser, loginUser };
