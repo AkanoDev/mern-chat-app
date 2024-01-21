@@ -9,7 +9,7 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, jwtkey, { expiresIn: "3d" });
 };
 
-const registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -67,7 +67,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -99,8 +99,41 @@ const loginUser = async (req, res) => {
       },
     });
   } catch (err) {
+    res.status(500).json(err);
     console.log(err);
   }
 };
 
-module.exports = { registerUser, loginUser };
+exports.findAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find();
+
+    res.status(200).json({
+      status: "success found user",
+      result: users.length,
+      data: {
+        users,
+      },
+    });
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+};
+
+exports.findUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await userModel.findById(id);
+
+    res.status(200).json({
+      status: "success found user",
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+};
