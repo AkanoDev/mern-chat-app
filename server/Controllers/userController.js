@@ -18,27 +18,27 @@ exports.registerUser = async (req, res) => {
     if (user)
       return res.status(400).json({
         status: "fail",
-        message: "duplicate entry!, email is already exist",
+        message: "Duplicate entry! email is already exist.",
       });
 
     if (!name || !email || !password)
       //if field is blank
       return res.status(400).json({
         status: "fail",
-        message: "Name, Email and Password are required",
+        message: "All fields are required...",
       });
 
     if (!validator.isEmail(email))
       return res.status(400).json({
         status: "fail",
-        message: "Invalid Email",
+        message: "Invalid Email!",
       });
 
     if (!validator.isStrongPassword(password))
       return res.status(400).json({
         status: "fail",
         message:
-          "Password must contain at least 1 capital letter, character and number",
+          "Password must contain at least 1 capital letter, character and number.",
       });
 
     //data is created
@@ -60,8 +60,8 @@ exports.registerUser = async (req, res) => {
         token,
       },
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(404).json({
       status: "failed",
       message: "Page Not Found",
@@ -79,7 +79,7 @@ exports.loginUser = async (req, res) => {
       //if email does not exist in the database
       return res.status(400).json({
         status: "fail",
-        message: "Invalid email or password, entry does not exist",
+        message: "Invalid email or password!",
       });
 
     const inValidPassword = await bcrypt.compare(password, user.password);
@@ -88,7 +88,7 @@ exports.loginUser = async (req, res) => {
       //if password does not exist in the database
       return res.status(400).json({
         status: "fail",
-        message: "Invalid email or password, entry does not exist",
+        message: "Invalid email or password!",
       });
 
     const token = createToken(user._id);
@@ -102,9 +102,9 @@ exports.loginUser = async (req, res) => {
         token,
       },
     });
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
   }
 };
 
@@ -119,9 +119,9 @@ exports.getAllUsers = async (req, res) => {
         users,
       },
     });
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
   }
 };
 
@@ -136,8 +136,8 @@ exports.findUser = async (req, res) => {
         user,
       },
     });
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
   }
 };
