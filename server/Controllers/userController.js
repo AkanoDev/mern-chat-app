@@ -22,6 +22,7 @@ exports.registerUser = async (req, res) => {
       });
 
     if (!name || !email || !password)
+      //if field is blank
       return res.status(400).json({
         status: "fail",
         message: "Name, Email and Password are required",
@@ -40,6 +41,7 @@ exports.registerUser = async (req, res) => {
           "Password must contain at least 1 capital letter, character and number",
       });
 
+    //data is created
     user = new userModel({ name, email, password });
 
     const random = await bcrypt.genSalt(10);
@@ -74,6 +76,7 @@ exports.loginUser = async (req, res) => {
     let user = await userModel.findOne({ email });
 
     if (!user)
+      //if email does not exist in the database
       return res.status(400).json({
         status: "fail",
         message: "Invalid email or password, entry does not exist",
@@ -82,6 +85,7 @@ exports.loginUser = async (req, res) => {
     const inValidPassword = await bcrypt.compare(password, user.password);
 
     if (!inValidPassword)
+      //if password does not exist in the database
       return res.status(400).json({
         status: "fail",
         message: "Invalid email or password, entry does not exist",

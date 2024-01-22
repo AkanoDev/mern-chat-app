@@ -1,6 +1,12 @@
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+
 function Register() {
+  const { register, updateRegister } = useContext(AuthContext);
   return (
     <div className="bg-yellow-50 flex flex-col items-center justify-center h-screen gap-5">
+      <div className="zig-zag-top absolute h-16 bg-green-600 z-10 top-0 left-0 right-0"></div>
+      <div className="zig-zag-bottom absolute h-16 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
       <figure className="flex flex-col items-center justify-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,16 +100,25 @@ function Register() {
           type="text"
           placeholder="username.."
           className="block w-full p-2 mb-2 rounded-sm outline-green-500"
+          onChange={(e) =>
+            updateRegister({ ...register, name: e.target.value })
+          }
         />
         <input
-          type="text"
+          type="email"
           placeholder="email.."
           className="block w-full p-2 mb-2 rounded-sm outline-green-500"
+          onChange={(e) =>
+            updateRegister({ ...register, email: e.target.value })
+          }
         />
         <input
           type="password"
           placeholder="password"
           className="block w-full p-2 mb-2 rounded-sm outline-green-500"
+          onChange={(e) =>
+            updateRegister({ ...register, password: e.target.value })
+          }
         />
         <button className="w-full rounded-sm bg-green-600 text-white p-2">
           Register

@@ -98,7 +98,7 @@ function Login() {
           className="block w-full p-2 mb-2 rounded-sm outline-green-500"
         />
         <input
-          type="text"
+          type="email"
           placeholder="email.."
           className="block w-full p-2 mb-2 rounded-sm outline-green-500"
         />
