@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/authContext';
 
 function Register() {
   const {
@@ -8,12 +8,12 @@ function Register() {
     registerUser,
     registerError,
     isRegisterLoading,
-  } = useContext(AuthContext);
+  } = useContext(AuthContext); //passing the JSX components from "authcontext.provider"
 
   return (
     <div className="bg-yellow-50 flex flex-col items-center justify-center h-screen gap-5">
       <div className="zig-zag-top absolute h-12 bg-green-600 z-10 top-0 left-0 right-0"></div>
-      <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
+
       <figure className="flex flex-col items-center justify-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,6 +102,7 @@ function Register() {
           chat
         </h1>
       </figure>
+
       <form className="w-72" onSubmit={registerUser}>
         <input
           type="text"
@@ -139,6 +140,8 @@ function Register() {
           </div>
         )}
       </form>
+
+      <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
     </div>
   );
 }

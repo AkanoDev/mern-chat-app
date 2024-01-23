@@ -1,23 +1,37 @@
-import { createContext, useCallback, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { baseURL, postRequest } from '../utils/services';
 
+// Create an authentication context
 export const AuthContext = createContext();
+
+// AuthContextProvider component to manage authentication state
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [registerError, setRegisterError] = useState(null);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
+
+  // State for Registration Form:
   const [register, setRegister] = useState({
     name: '',
     email: '',
     password: '',
   });
 
-  console.log(register);
+  //whenever the application first load we get that user information to the local storage then add the user to the state
+  useEffect(() => {
+    const user = localStorage.getItem('User');
 
+    setUser(JSON.parse(user));
+  }, []);
+
+  console.log('User', user);
+
+  //This function is intended to update the "register" state based on the provided "info" parameter.
   const updateRegister = useCallback((info) => {
     setRegister(info);
   }, []);
 
+  //useCallback() is a storage of data that might use for future purposes
   const registerUser = useCallback(
     async (e) => {
       e.preventDefault();
@@ -36,14 +50,15 @@ export const AuthContextProvider = ({ children }) => {
         return setRegisterError(response);
       }
 
-      //if no error detected, pass the response to setUser
-      localStorage.setItem('User', JSON.stringify(response));
+      //stores the user data in local storage if successful.
+      localStorage.setItem('User', JSON.stringify(response)); //"User" is just a key we can call it whatever we want
 
       setUser(response);
     },
     [register],
   );
 
+  //Returns JSX that wraps the child components in the "AuthContext.Provider"
   return (
     <AuthContext.Provider
       value={{

@@ -10,7 +10,7 @@ export const postRequest = async (url, body) => {
     body,
   });
   const data = await response.json();
-  //check if the response is okat before return the data
+  //check if the response is okay before return the data
 
   if (!response.ok) {
     let message;
