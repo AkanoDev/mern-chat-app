@@ -2,7 +2,6 @@ function Login() {
   return (
     <div className="bg-yellow-50 flex flex-col items-center justify-center h-screen gap-5 relative">
       <div className="zig-zag-top absolute h-12 bg-green-600 z-10 top-0 left-0 right-0"></div>
-      <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
       <figure className="flex flex-col items-center justify-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -111,6 +110,8 @@ function Login() {
           Login
         </button>
       </form>
+
+      <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
     </div>
   );
 }

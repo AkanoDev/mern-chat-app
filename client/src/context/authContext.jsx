@@ -58,6 +58,11 @@ export const AuthContextProvider = ({ children }) => {
     [register],
   );
 
+  const logoutUser = useCallback(() => {
+    localStorage.removeItem('User');
+    setUser(null);
+  }, []);
+
   //Returns JSX that wraps the child components in the "AuthContext.Provider"
   return (
     <AuthContext.Provider
@@ -68,6 +73,7 @@ export const AuthContextProvider = ({ children }) => {
         registerUser,
         registerError,
         isRegisterLoading,
+        logoutUser,
       }}
     >
       {children}
