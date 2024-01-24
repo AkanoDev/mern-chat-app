@@ -17,6 +17,15 @@ export const AuthContextProvider = ({ children }) => {
     password: '',
   });
 
+  const [LoginError, setLoginError] = useState(null);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+
+  // State for login Form:
+  const [login, setLogin] = useState({
+    email: '',
+    password: '',
+  });
+
   //whenever the application first load we get that user information to the local storage then add the user to the state
   useEffect(() => {
     const user = localStorage.getItem('User');
@@ -25,10 +34,15 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   console.log('User', user);
+  console.log('Login', login);
 
   //This function is intended to update the "register" state based on the provided "info" parameter.
   const updateRegister = useCallback((info) => {
     setRegister(info);
+  }, []);
+
+  const updateLogin = useCallback((info) => {
+    setLogin(info);
   }, []);
 
   //useCallback() is a storage of data that might use for future purposes
@@ -63,6 +77,31 @@ export const AuthContextProvider = ({ children }) => {
     setUser(null);
   }, []);
 
+  const loginUser = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      setIsLoginLoading(true);
+      setLoginError(null);
+
+      const response = await postRequest(
+        `${baseURL}/users/login`,
+        JSON.stringify(login),
+
+        setIsLoginLoading(false),
+      );
+
+      if (response.error) {
+        return setLoginError(response);
+      }
+
+      localStorage.setItem('User', JSON.stringify(response)); //"User" is just a key we can call it whatever we want
+
+      setUser(response);
+    },
+    [login],
+  );
+
   //Returns JSX that wraps the child components in the "AuthContext.Provider"
   return (
     <AuthContext.Provider
@@ -74,6 +113,13 @@ export const AuthContextProvider = ({ children }) => {
         registerError,
         isRegisterLoading,
         logoutUser,
+
+        //login
+        login,
+        updateLogin,
+        LoginError,
+        isLoginLoading,
+        loginUser,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ function Register() {
   } = useContext(AuthContext); //passing the JSX components from "authcontext.provider"
 
   return (
-    <div className="bg-yellow-50 flex flex-col items-center justify-center h-screen gap-5">
+    <div className="bg-yellow-50 flex flex-col items-center justify-center h-screen gap-5 relative">
       <div className="zig-zag-top absolute h-12 bg-green-600 z-10 top-0 left-0 right-0"></div>
 
       <figure className="flex flex-col items-center justify-center gap-2">
@@ -132,7 +132,7 @@ function Register() {
           type="submit"
           className="w-full rounded-sm bg-green-600 text-white p-2 mb-2"
         >
-          {isRegisterLoading ? 'Creating User...' : 'register'}
+          {isRegisterLoading ? 'Creating User...' : 'Register'}
         </button>
         {registerError?.error && (
           <div className="bg-red-200 p-4 rounded-sm text-center">
