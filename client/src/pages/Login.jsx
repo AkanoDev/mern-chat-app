@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const { login, updateLogin, LoginError, isLoginLoading, loginUser } =
@@ -117,10 +118,19 @@ function Login() {
           Login
         </button>
         {LoginError?.error && (
-          <div className="bg-red-200 p-4 rounded-sm text-center">
+          <div className="bg-red-200 p-4 mb-2 rounded-sm text-center">
             <p>{LoginError?.message}</p>
           </div>
         )}
+
+        <Link to="/register">
+          <button
+            type="submit"
+            className="w-full rounded-sm bg-green-600 text-white p-2 mb-2"
+          >
+            Create New Account
+          </button>
+        </Link>
       </form>
 
       <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>
