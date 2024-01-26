@@ -1,14 +1,13 @@
-const { response } = require("express");
 const chatModel = require("../Models/chatModel");
 
-//createUser
+//createChat
 
-exports.createUser = async (req, res) => {
+exports.createChat = async (req, res) => {
   const { firstId, secondId } = req.body;
 
   try {
     const chat = await chatModel.findOne({
-      members: { $all: { firstId, secondId } },
+      members: { $all: [firstId, secondId] },
     });
 
     if (chat) return res.status(200).json(chat);

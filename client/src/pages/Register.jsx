@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const {
@@ -139,6 +140,9 @@ function Register() {
             <p>{registerError?.message}</p>
           </div>
         )}
+        <Link to="/login">
+          <p className="text-center p-2 mt-1 cursor-pointer">Login Account</p>
+        </Link>
       </form>
 
       <div className="zig-zag-bottom absolute h-12 bg-green-600 z-10 bottom-0 left-0 right-0"></div>

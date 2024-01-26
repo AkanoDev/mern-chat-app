@@ -124,12 +124,9 @@ function Login() {
         )}
 
         <Link to="/register">
-          <button
-            type="submit"
-            className="w-full rounded-sm bg-green-600 text-white p-2 mb-2"
-          >
+          <p className="text-center p-2 mt-1 cursor-pointer">
             Create New Account
-          </button>
+          </p>
         </Link>
       </form>
 

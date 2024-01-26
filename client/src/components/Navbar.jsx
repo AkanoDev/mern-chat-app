@@ -17,7 +17,7 @@ function Navbar() {
         </ul>
         <div className={`user-menu ${showUserMenu ? 'show' : ''}`}>
           <h2 className="h-12 bg-blue-100 p-2 mb-4 rounded-lg shadow-md shadow-black/20">
-            {user.data?.name}
+            {user?.name}
           </h2>
           <ul>
             <li>Profile</li>

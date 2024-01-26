@@ -44,8 +44,8 @@ exports.registerUser = async (req, res) => {
     //data is created
     user = new userModel({ name, email, password });
 
-    const random = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, random);
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
 
     await user.save();
 
@@ -53,12 +53,10 @@ exports.registerUser = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      data: {
-        // id: user._id,
-        name,
-        email,
-        token,
-      },
+      _id: user._id,
+      name,
+      email,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -70,9 +68,9 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
+  try {
     let user = await userModel.findOne({ email });
 
     if (!user)
@@ -95,12 +93,10 @@ exports.loginUser = async (req, res) => {
 
     res.status(200).json({
       status: "login successfully",
-      data: {
-        // id: user._id,
-        name: user.name,
-        email,
-        token,
-      },
+      _id: user._id,
+      name: user.name,
+      email,
+      token,
     });
   } catch (error) {
     res.status(500).json(error);
@@ -115,9 +111,7 @@ exports.getAllUsers = async (req, res) => {
     res.status(200).json({
       status: "success found user",
       result: users.length,
-      data: {
-        users,
-      },
+      users,
     });
   } catch (error) {
     res.status(500).json(error);
@@ -126,15 +120,13 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.findUser = async (req, res) => {
-  const id = req.params.id;
+  const userId = req.params.userId;
   try {
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(userId);
 
     res.status(200).json({
       status: "successfully found user",
-      data: {
-        user,
-      },
+      user,
     });
   } catch (error) {
     res.status(500).json(error);
