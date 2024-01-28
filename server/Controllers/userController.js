@@ -52,7 +52,6 @@ exports.registerUser = async (req, res) => {
     const token = createToken(user._id);
 
     res.status(200).json({
-      status: "success",
       _id: user._id,
       name,
       email,
@@ -92,7 +91,6 @@ exports.loginUser = async (req, res) => {
     const token = createToken(user._id);
 
     res.status(200).json({
-      status: "login successfully",
       _id: user._id,
       name: user.name,
       email,
@@ -108,11 +106,7 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find();
 
-    res.status(200).json({
-      status: "success found user",
-      result: users.length,
-      users,
-    });
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json(error);
     console.log(error);
@@ -124,10 +118,7 @@ exports.findUser = async (req, res) => {
   try {
     const user = await userModel.findById(userId);
 
-    res.status(200).json({
-      status: "successfully found user",
-      user,
-    });
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
     console.log(error);

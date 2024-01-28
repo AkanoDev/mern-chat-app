@@ -3,6 +3,7 @@ import { AuthContext } from '../context/authContext';
 import Navbar from '../components/Navbar';
 import { ChatContext } from '../context/ChatContext';
 import UserChat from '../components/chat/UserChat';
+import PotentialChats from '../components/chat/potentialChats';
 
 function Chat() {
   const { user } = useContext(AuthContext);
@@ -14,11 +15,12 @@ function Chat() {
         <Navbar />
         <div className="flex gap-12 p-8 h-full">
           <div>
+            <PotentialChats />
             {userChats?.length < 1 ? null : (
               <div>
                 {isUserChatLoading && <p>chat loading..</p>}
                 {userChats?.map((chat, index) => {
-                  return <UserChat chat={chat} user={user} key={user?._id} />;
+                  return <UserChat chat={chat} user={user} key={index} />;
                 })}
               </div>
             )}
