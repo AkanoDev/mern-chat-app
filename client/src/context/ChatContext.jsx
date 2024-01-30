@@ -14,6 +14,9 @@ export const ChatContextProvider = ({ children, user }) => {
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [MessagesError, setMessagesError] = useState(null);
 
+  const [sendTextMessageError, setSendTextMessageError] = useState(null);
+  const [newMessage, setNewMessage] = useState(null);
+
   console.log('messages:', messages);
 
   useEffect(() => {
@@ -96,6 +99,28 @@ export const ChatContextProvider = ({ children, user }) => {
     getMessages();
   }, [currentChat]);
 
+  const sendTextMessage = useCallback(
+    async (textMessage, sender, currentChatId, setTextMessage) => {
+      if (!textMessage) return console.log('you must type something...');
+
+      const response = await postRequest(
+        `${baseURL}/messages`,
+        JSON.stringify({
+          chatId: currentChatId,
+          senderId: sender._id,
+          text: textMessage,
+        }),
+      );
+      if (response.error) {
+        return setSendTextMessageError(response);
+      }
+      setNewMessage(response);
+      setMessages((prev) => [...prev, response]);
+      setTextMessage('');
+    },
+    [],
+  );
+
   return (
     <ChatContext.Provider
       value={{
@@ -110,6 +135,8 @@ export const ChatContextProvider = ({ children, user }) => {
         messages,
         isMessagesLoading,
         MessagesError,
+
+        sendTextMessage,
       }}
     >
       {children}

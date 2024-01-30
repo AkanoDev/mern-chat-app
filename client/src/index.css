@@ -90,7 +90,7 @@
 }
 
 .messages {
-  max-height: calc(100vh - 15rem);
+  height: 100%;
   overflow-y: auto;
   padding: 0 2rem;
   display: flex;
@@ -105,18 +105,39 @@
   align-self: flex-start;
   max-width: 50%;
   flex-grow: 0;
+  margin-bottom: 12px;
 }
 
 .message.self {
   color: white;
   background: #00bd9b;
+  display: flex;
+  flex-direction: column;
   align-self: flex-end;
   flex-grow: 0;
+  margin-bottom: 12px;
 }
 
-.chat-input {
+.message-footer {
+  align-self: flex-end;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.chat-input-container {
   width: 100%;
   background: rgb(30, 30, 30);
   padding: 1rem;
   align-self: flex-end;
+  display: flex;
+}
+
+.chat-input {
+  max-height: 50px;
+  overflow: auto;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
+  scroll-behavior: smooth;
 }
