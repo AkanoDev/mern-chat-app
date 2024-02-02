@@ -141,3 +141,11 @@
   display: none;
   scroll-behavior: smooth;
 }
+
+.online-users {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: green;
+}
+/* //w-3 h-3  rounded-full border border-white bg-green-500 absolute right-0 top-0 */
