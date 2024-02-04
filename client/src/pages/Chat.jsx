@@ -12,18 +12,18 @@ function Chat() {
     useContext(ChatContext);
   return (
     <div className="h-screen">
-      <div className="flex flex-col bg-red-100 h-full">
+      <div className="chat-bg flex flex-col bg-green-100 h-full">
         <Navbar />
         <div className="flex gap-12 p-8 h-full w-screen">
-          <PotentialChats />
           {userChats?.length < 1 ? null : (
             <div className="flex gap-4 w-full">
-              <div>
+              <div className="contact-list p-2">
+                <PotentialChats />
                 {isUserChatLoading && <p>chat loading..</p>}
                 {userChats?.map((chat, index) => {
                   return (
                     <div
-                      className="cursor-pointer"
+                      className="cursor-pointer mt-6"
                       key={index}
                       onClick={() => updateCurrentChat(chat)}
                     >

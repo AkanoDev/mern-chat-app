@@ -12,7 +12,7 @@ function UserChat({ chat, user }) {
 
   return (
     <div className="flex gap-3 items-center justify-between lg:w-96 w-12 mb-3 p-1 border border-black border-t-0 border-r-0 border-l-0">
-      <div className="flex gap-2">
+      <div className="flex lg:flex-row flex-col items-center gap-2">
         <div className="w-11 h-11 rounded-full bg-blue-100"></div>
         <div>
           <div className="flex gap-1">
@@ -25,10 +25,10 @@ function UserChat({ chat, user }) {
             ></span>
             <span className="font-semibold">{recipientUser?.name}</span>
           </div>
-          <div className="opacity-80">text message...</div>
+          <div className="lg:flex hidden opacity-80">text message...</div>
         </div>
       </div>
-      <div className="flex flex-col items-end gap-2">
+      <div className="lg:flex lg:flex-col hidden items-end gap-2">
         <div className="text-sm">12-12-12</div>
         <div className="user-notification">2</div>
       </div>

@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 function Navbar() {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -9,11 +10,15 @@ function Navbar() {
     setShowUserMenu((prev) => !prev);
   };
   return (
-    <header className="flex justify-between items-center bg-yellow-100 px-10 h-12 ">
-      <span>Logo</span>
+    <header className="header flex justify-between items-center px-10 h-16">
+      <img
+        src="./../public/images/logo-fruit.png"
+        alt="logo"
+        className="w-32"
+      />
       <nav className="relative">
         <ul>
-          <li onClick={toggleUserMenu}>box</li>
+          <RxHamburgerMenu onClick={toggleUserMenu} className="text-2xl" />
         </ul>
         <div className={`user-menu ${showUserMenu ? 'show' : ''}`}>
           <h2 className="h-12 bg-blue-100 p-2 mb-4 rounded-lg shadow-md shadow-black/20">
